@@ -1,0 +1,27 @@
+{
+  "name": "ssu20232.paap",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tf2mandeokyi/ssu20232.paap.git"
+  },
+  "author": "m4ndeokyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tf2mandeokyi/ssu20232.paap/issues"
+  },
+  "homepage": "https://github.com/tf2mandeokyi/ssu20232.paap#readme",
+  "dependencies": {
+    "command-exists": "^1.2.9",
+    "dotenv": "^16.3.1",
+    "md-to-pdf": "^5.2.4",
+    "minimist": "^1.2.8",
+    "require-main-filename": "^2.0.0",
+    "yaml": "^2.3.4"
+  }
+}
