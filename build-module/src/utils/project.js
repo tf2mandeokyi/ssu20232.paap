@@ -7,16 +7,15 @@ const { getDirectoryMap } = require('./directory');
 /**
  * @param {string} projectRoot
  * @param {string} propertiesFile
- * @returns {import('./interface').ProjectProperties}
+ * @returns {Partial<import('./interface').ProjectConfig>}
  */
-function getProperties(projectRoot, propertiesFile='properties.yml') {
+function getConfig(projectRoot, propertiesFile='config.yml') {
     let fileDirectory = path.join(projectRoot, propertiesFile)
     try {
         let file = fs.readFileSync(fileDirectory, 'utf-8');
         return YAML.parse(file)
     } catch(e) {
-        console.error(`File "${propertiesFile}" not found on the project`);
-        process.exit(-1);
+        return {};
     }
 }
 
@@ -57,4 +56,4 @@ async function getDirectory(root, projectNumber) {
 }
 
 
-module.exports = { getProperties, getProjectNumber, getDirectory }
+module.exports = { getConfig, getProjectNumber, getDirectory }

@@ -1,9 +1,6 @@
 const path = require('path');
-const { mdToPdf } = require('md-to-pdf');
-
 const subcommands = require('./src/subcommands')
-
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
 const root = path.resolve(__dirname, '..') // Since we're in build-src, we first get out of the __dirname
 
@@ -19,11 +16,11 @@ async function main(args) {
             break;
         }
         case 'run': {
-            subcommands.run(root, args);
+            await subcommands.run(root, args);
             break;
         }
         case 'zip': {
-            subcommands.zip(root, args);
+            await subcommands.zip(root, args);
             break;
         }
     }
@@ -31,6 +28,11 @@ async function main(args) {
 
 
 if(require.main === module) {
+    if(process.env['student_id'] === undefined) {
+        console.error('Student ID not provided in .env file in the project root folder');
+        process.exit(-1);
+    }
+
     let args = require('minimist')(process.argv);
     if(args._.length < 3) {
         console.error(`No sub command found; Try "./run.sh help" or "./run.bat help"`)

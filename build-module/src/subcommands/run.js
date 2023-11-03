@@ -1,6 +1,6 @@
 const { spawn } = require('child_process')
 const commandExists = require('command-exists')
-const { getDirectory, getProjectNumber, getProperties } = require('../utils/project')
+const { getDirectory, getProjectNumber, getConfig } = require('../utils/project')
 
 
 /**
@@ -35,19 +35,26 @@ module.exports = async function(root, args) {
 
     let projectNumber = getProjectNumber(args);
     let projectDir = await getDirectory(root, projectNumber);
-    let projectProperties = getProperties(projectDir);
+    let projectConfig = getConfig(projectDir);
+    if(projectConfig === undefined) {
+        console.error('The file "config.yml" is not found in the project');
+        process.exit(-1);
+    }
 
-    let commands = projectProperties.run;
+    let commands = projectConfig.run;
     if(commands === undefined) {
-        console.error('The "run" property in "properties.yml" is not defined');
+        console.error('The "run" property in "config.yml" is not defined');
         process.exit(-1);
     }
     if(!Array.isArray(commands)) {
-        console.error('The "run" property in "properties.yml" is not an array');
+        console.error('The "run" property in "config.yml" is not an array');
         process.exit(-1);
     }
 
-    for(let { command, args } of commands) {
+    let platform = process.platform
+    for(let osDependantCommand of commands) {
+        let { command, args } = osDependantCommand[platform] ?? osDependantCommand['default'];
+        
         console.log(`Executing command: ${command} ${(args ?? []).join(' ')}`)
         let exitCode = await execute(projectDir, command, args ?? []);
         if(exitCode != 0) {

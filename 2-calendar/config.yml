@@ -1,0 +1,14 @@
+run:
+  - default: { command: 'gcc', args: [ '20231714_2_2.c' ] }
+  - default: { command: './a.out' }
+    win32: { command: './a.exe' }
+
+zip:
+  rename:
+    20231714_2_2.c: 20231714_2.c
+  exclude:
+    - 20231714_2_1.c
+    - a.out
+    - a.exe
+    - .gitignore
+    - result.docx
