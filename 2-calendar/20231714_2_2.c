@@ -121,7 +121,7 @@ void handle_schedule_check(char **schedules, int dayCount, int year, int month)
 	} while(day < 1 || day > dayCount || schedules[day-1] == NULL);
 
 	printf("%d년 %d월 %d일 일정은 %s입니다.", year, month, day, schedules[day-1]);
-	getchar(); // TODO: termios getch()로 바꾸기
+	while(getchar() != '\n') {}; // TODO: termios getch()로 바꾸기
 	getchar();
 }
 
