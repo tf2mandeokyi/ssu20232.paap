@@ -9,4 +9,4 @@ done
 DIR=$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )
 
 cd "$DIR/build-module"
-node index.js "$@"
+npm i
