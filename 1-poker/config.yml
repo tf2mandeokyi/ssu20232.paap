@@ -1,0 +1,9 @@
+run:
+  - default: { command: 'gcc', args: [ '20231714_1.c' ] }
+  - default: { command: './a.out' }
+    win32: { command: './a.exe' }
+
+zip:
+  exclude:
+    - a.out
+    - a.exe
